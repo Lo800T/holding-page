@@ -53,8 +53,8 @@ def hero_image():
 subs = {
     "{{FONT_MONTSERRAT}}": data_uri(os.path.join(ASSETS, "montserrat-latin.woff2"), "font/woff2"),
     "{{HERO_IMG}}": hero_image(),
-    "{{CESAR_IMG}}": data_uri(os.path.join(ASSETS, "cesar-office.webp"), "image/webp"),
-    "{{JAY_IMG}}": data_uri(os.path.join(ASSETS, "jay-office.webp"), "image/webp"),
+    "{{CESAR_IMG}}": data_uri(os.path.join(ASSETS, "cesar-portrait.webp"), "image/webp"),
+    "{{JAY_IMG}}": data_uri(os.path.join(ASSETS, "jay-portrait.webp"), "image/webp"),
     "{{CESAR_AVATAR}}": avatar_uri(os.path.join(ASSETS, "cesar-square.jpg")),
     "{{JAY_AVATAR}}": avatar_uri(os.path.join(ASSETS, "jay-square.jpg")),
     "{{QR_CESAR}}": inline_svg(os.path.join(ASSETS, "qr-cesar-vcard.svg")),

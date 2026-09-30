@@ -16,14 +16,14 @@ SITE = "https://assettracingadvisory.com"
 PEOPLE = {
     "cesar": {
         "first": "Cesar", "last": "Sepulveda",
-        "title": "Co-founder & Director",
+        "title": "Co-founder & Managing Director",
         "email": "cesar@assettracingadvisory.com",
         "mobile": "+44 7732 054924",
         "linkedin": "https://www.linkedin.com/in/cesar-sepulveda-447a0119/",
     },
     "jay": {
         "first": "Jay", "last": "Cartwright",
-        "title": "Co-founder & Director",
+        "title": "Co-founder & Managing Director",
         "email": "jay@assettracingadvisory.com",
         "mobile": "+44 7545 847475",
         "linkedin": "https://www.linkedin.com/in/jay-cartwright/",
