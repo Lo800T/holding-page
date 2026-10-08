@@ -2,7 +2,9 @@
 
     python3 build.py
 
-Reads index.template.html plus ../assets/* and writes ../index.html.
+Reads index.template.html plus ../assets/* and writes ../index.html, plus
+../index-paged.html: the same page with paged.html added, which shows one
+section per screen on phones.
 Needs Pillow only (for the small hero avatars).
 """
 import base64
@@ -16,6 +18,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, "..", "assets")
 MARKETING = os.path.join(HERE, "..", "..", "active-marketing-assets")
 OUT = os.path.join(HERE, "..", "index.html")
+OUT_PAGED = os.path.join(HERE, "..", "index-paged.html")
 
 
 def data_uri(path, mime):
@@ -76,3 +79,12 @@ if left:
 with open(OUT, "w", encoding="utf-8") as f:
     f.write(html)
 print(f"wrote {os.path.relpath(OUT, HERE)}  ({len(html) / 1024:.0f} KB)")
+
+with open(os.path.join(HERE, "paged.html"), encoding="utf-8") as f:
+    paged = f.read()
+if html.count("</body>") != 1:
+    raise SystemExit("expected exactly one </body> in the template")
+paged_html = html.replace("</body>", paged + "\n</body>", 1)
+with open(OUT_PAGED, "w", encoding="utf-8") as f:
+    f.write(paged_html)
+print(f"wrote {os.path.relpath(OUT_PAGED, HERE)}  ({len(paged_html) / 1024:.0f} KB, paged on phones)")

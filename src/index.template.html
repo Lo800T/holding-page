@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://assettracingadvisory.com/og-image.jpg">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Asset Tracing Advisory Limited","legalName":"Asset Tracing Advisory Limited","identifier":{"@type":"PropertyValue","propertyID":"Companies House company number","value":"17491414"},"foundingDate":"2026-09-30","alternateName":"ATA","slogan":"We distil the noise. You get the truth.","description":"AI-enhanced global asset tracing: uncovering hidden wealth, mapping corporate ownership and tracing digital assets, with every finding verified by one of our intelligence experts.","url":"https://assettracingadvisory.com/","telephone":"+44 20 7164 0332","email":"jay@assettracingadvisory.com","address":{"@type":"PostalAddress","streetAddress":"45 Albemarle Street","addressLocality":"London","postalCode":"W1S 4JL","addressCountry":"GB"},"areaServed":"Worldwide","knowsLanguage":["en","es"],"sameAs":["https://www.linkedin.com/company/asset-tracing-advisory/"],"founder":[{"@type":"Person","name":"Cesar Sepulveda","jobTitle":"Co-founder & Managing Director","email":"cesar@assettracingadvisory.com","sameAs":"https://www.linkedin.com/in/cesar-sepulveda-447a0119/"},{"@type":"Person","name":"Jay Cartwright","jobTitle":"Co-founder & Managing Director","email":"jay@assettracingadvisory.com","sameAs":"https://www.linkedin.com/in/jay-cartwright/"}],"knowsAbout":["Asset tracing","Hidden asset investigations","Beneficial ownership","Cryptocurrency tracing","Wallet attribution","Judgment enforcement","Pre-action asset reports","Debtor tracing","OSINT","HUMINT"]}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Asset Tracing Advisory Limited","legalName":"Asset Tracing Advisory Limited","identifier":[{"@type":"PropertyValue","propertyID":"Companies House company number","value":"17491414"},{"@type":"PropertyValue","propertyID":"ICO data protection registration","value":"ZC263130","url":"https://ico.org.uk/ESDWebPages/Entry/ZC263130"}],"foundingDate":"2026-09-30","alternateName":"ATA","slogan":"We distil the noise. You get the truth.","description":"AI-enhanced global asset tracing: uncovering hidden wealth, mapping corporate ownership and tracing digital assets, with every finding verified by one of our intelligence experts.","url":"https://assettracingadvisory.com/","telephone":"+44 20 7164 0332","email":"jay@assettracingadvisory.com","address":{"@type":"PostalAddress","streetAddress":"45 Albemarle Street","addressLocality":"London","postalCode":"W1S 4JL","addressCountry":"GB"},"areaServed":"Worldwide","knowsLanguage":["en","es"],"sameAs":["https://www.linkedin.com/company/asset-tracing-advisory/"],"founder":[{"@type":"Person","name":"Cesar Sepulveda","jobTitle":"Co-founder & Managing Director","email":"cesar@assettracingadvisory.com","sameAs":"https://www.linkedin.com/in/cesar-sepulveda-447a0119/"},{"@type":"Person","name":"Jay Cartwright","jobTitle":"Co-founder & Managing Director","email":"jay@assettracingadvisory.com","sameAs":"https://www.linkedin.com/in/jay-cartwright/"}],"knowsAbout":["Asset tracing","Hidden asset investigations","Beneficial ownership","Cryptocurrency tracing","Wallet attribution","Judgment enforcement","Pre-action asset reports","Debtor tracing","OSINT","HUMINT"]}
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='150 115 1085 680'%3E%3Cpolygon fill='%23e9f1f3' points='575,122 715,122 852,375 697,425 630,298 395,400'/%3E%3Cpolygon fill='%23e9f1f3' points='750,538 897,460 1080,788 888,788'/%3E%3Cpolygon fill='%23aeb4ba' points='372,433 615,320 490,520 158,768'/%3E%3Cpath fill='%230aa384' d='M208,785 C400,590 700,420 1225,342 C900,385 620,520 455,785 Z'/%3E%3C/svg%3E">
 <style>
@@ -76,6 +76,8 @@
   p, li { text-align: justify; -webkit-hyphens: auto; hyphens: auto; }
   .cone-card p, .loop-core p, .qr-pop p, .band-head.center p { text-align: center; -webkit-hyphens: manual; hyphens: manual; }
   .tagline, .quote p { text-align: left; -webkit-hyphens: manual; hyphens: manual; }
+  .qr-site p, .send-lead, .brief-status, .send-note { -webkit-hyphens: manual; hyphens: manual; }
+  .qr-site p { text-align: left; }
   section.band { position: relative; padding: 120px 0; }
   .band-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px 56px; margin-bottom: 56px; }
   .band-head > div { flex: 1 1 520px; min-width: 0; }
@@ -324,6 +326,8 @@
   .rule { padding-top: 16px; border-top: 1px solid var(--line); }
   .rule h4 { font-size: 13.5px; font-weight: 700; }
   .rule p { margin-top: 8px; font-size: 12.5px; line-height: 1.6; color: var(--soft); }
+  .rule p a { color: var(--text); text-decoration: underline; text-decoration-color: rgba(52,214,210,.55); text-underline-offset: 2px; }
+  .rule p a:hover { color: var(--cyan); }
 
   /* ---------- Engagement ---------- */
   .engage { background: linear-gradient(180deg, var(--night), #03212d 55%, var(--night)); border-top: 1px solid var(--line); }
@@ -438,6 +442,7 @@
   .dir-creds li { position: relative; padding-left: 18px; font-size: 12.5px; line-height: 1.5; color: var(--soft); }
   .dir-creds li::before { content: ""; position: absolute; left: 0; top: 6px; width: 7px; height: 7px; border-radius: 2px; background: var(--grad); transform: rotate(45deg); }
   .acts { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 8px; position: relative; }
+  .acts .book { flex: 1 1 100%; margin-bottom: 4px; }
   .act { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(233,241,243,.22); background: transparent; cursor: pointer;
     font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; transition: background .25s, color .25s, border-color .25s; }
   .act svg { width: 14px; height: 14px; fill: currentColor; }
@@ -1057,7 +1062,7 @@
         <div class="rule"><h4>Confidential by default</h4><p>Client material is only processed in business-grade AI environments whose terms exclude training on your data. Never in consumer chatbots.</p></div>
         <div class="rule"><h4>Sourced, not generated</h4><p>AI never supplies a fact. Every finding traces back to a primary record that we can produce.</p></div>
         <div class="rule"><h4>Transparent</h4><p>We tell you where AI was used on your matter and what a human checked.</p></div>
-        <div class="rule"><h4>Lawful</h4><p>UK GDPR, with a documented legitimate-interest assessment for every matter. No pretexting, no hacking, no unlawfully obtained data.</p></div>
+        <div class="rule"><h4>Lawful</h4><p>UK GDPR, with a documented legitimate-interest assessment for every matter. Registered with the ICO (<a href="https://ico.org.uk/ESDWebPages/Entry/ZC263130" target="_blank" rel="noopener">ZC263130</a>). No pretexting, no hacking, no unlawfully obtained data.</p></div>
         <div class="rule"><h4>Accountable</h4><p>A named Managing Director reviews and signs off every report.</p></div>
       </div>
     </div>
@@ -1245,6 +1250,7 @@
           </ul>
           <p class="prev"><b>Previously:</b> Director of Intelligence, Ankura Consulting &middot; Partner, gcw-intelligence LLP</p>
           <div class="acts">
+            <a class="btn btn-primary book" href="https://calendly.com/cesar-assettracingadvisory" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3zm12 8H5v9h14zM5 6v2h14V6z"/></svg>Book a call with Cesar</a>
             <a class="act" href="mailto:cesar@assettracingadvisory.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4.2 7H4v.9l8 5.4 8-5.4V7h-.2L12 12.2z"/></svg>Email</a>
             <a class="act li" href="https://www.linkedin.com/in/cesar-sepulveda-447a0119/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11.5H3zM9.5 9.75h3.83v1.57h.06c.53-1 1.84-2.07 3.79-2.07 4.05 0 4.8 2.67 4.8 6.13v5.87h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75v5.29h-4z"/></svg>LinkedIn</a>
             <a class="act save" href="{{VCF_CESAR}}" download="Cesar-Sepulveda.vcf" data-vcf><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4h2v9.2l3.3-3.3 1.4 1.4-5.7 5.7-5.7-5.7 1.4-1.4 3.3 3.3zM5 18h14v2H5z"/></svg>Save contact</a>
@@ -1508,7 +1514,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <span><b>Asset Tracing Advisory Limited</b> &nbsp;Registered in England and Wales, company number <a href="https://find-and-update.company-information.service.gov.uk/company/17491414" target="_blank" rel="noopener">17491414</a> &middot; Registered office: 45 Albemarle Street, London W1S 4JL</span>
+      <span><b>Asset Tracing Advisory Limited</b> &nbsp;Registered in England and Wales, company number <a href="https://find-and-update.company-information.service.gov.uk/company/17491414" target="_blank" rel="noopener">17491414</a> &middot; Registered office: 45 Albemarle Street, London W1S 4JL &middot; ICO registration <a href="https://ico.org.uk/ESDWebPages/Entry/ZC263130" target="_blank" rel="noopener">ZC263130</a></span>
       <div class="foot-links">
         <a href="https://www.linkedin.com/company/asset-tracing-advisory/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="tel:+442071640332">+44 (0)20 7164 0332</a>

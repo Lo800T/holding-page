@@ -1,0 +1,217 @@
+<!-- Paged phone layout. build.py injects this into index-paged.html only; index.html never contains it. -->
+<style>
+  .pager, .page-next, .pagelist { display: none; }
+  html.paged body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+  html.paged [data-off] { display: none !important; }
+  html.paged section.band { padding: 88px 0 28px; }
+  html.paged .page-next { display: block; padding-bottom: 32px; }
+  .page-next a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-radius: 16px;
+    border: 1px solid var(--line-2); background: linear-gradient(90deg, rgba(52, 214, 210, .12), rgba(10, 163, 132, .04)); }
+  .page-next small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--cyan); }
+  .page-next b { display: block; margin-top: 4px; font-size: 17px; font-weight: 700; }
+  .page-next svg { flex: none; width: 20px; height: 20px; fill: var(--cyan); }
+
+  html.paged .pager { position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; gap: 10px; align-items: center;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: rgba(2, 24, 33, .94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--line); }
+  .pager button { height: 48px; border-radius: 14px; border: 1px solid rgba(120, 220, 220, .22); background: rgba(10, 60, 75, .45); color: var(--text); display: grid; place-items: center; cursor: pointer; font: inherit; }
+  .pager button:disabled { opacity: .3; cursor: default; }
+  .pager .pg-next { background: var(--grad); color: #01171f; border-color: transparent; }
+  .pager .pg-next:disabled { background: rgba(10, 60, 75, .45); color: var(--text); border-color: rgba(120, 220, 220, .22); }
+  .pager svg { width: 18px; height: 18px; fill: currentColor; }
+  .pager .pg-menu { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0 12px; min-width: 0; }
+  .pg-menu .pg-n { flex: none; font-size: 10.5px; font-weight: 700; letter-spacing: .12em; color: var(--cyan); }
+  .pg-menu .pg-t { min-width: 0; font-size: 13.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pg-menu svg { flex: none; width: 14px; height: 14px; opacity: .7; }
+  .pg-progress { position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: rgba(120, 220, 220, .1); }
+  .pg-progress i { display: block; height: 100%; background: var(--grad); transition: width .35s ease; }
+
+  html.paged .pagelist { position: fixed; inset: 0; z-index: 80; display: flex; align-items: flex-end; background: rgba(1, 12, 17, .66); }
+  html.paged .pagelist[hidden] { display: none; }
+  .pagelist .sheet { width: 100%; max-height: 86vh; overflow: auto; padding: 16px 16px calc(18px + env(safe-area-inset-bottom)); border-radius: 20px 20px 0 0;
+    background: var(--deep); border-top: 1px solid var(--line-2); }
+  .sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .sheet-head b { font-size: 11px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--dim); }
+  .sheet-head button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--text); display: grid; place-items: center; cursor: pointer; }
+  .sheet-head svg { width: 16px; height: 16px; fill: currentColor; }
+  .pagelist ol { list-style: none; display: grid; gap: 6px; }
+  .pagelist li { text-align: left; -webkit-hyphens: manual; hyphens: manual; }
+  .pagelist a { display: flex; align-items: center; gap: 14px; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--line); font-size: 15px; font-weight: 600; }
+  .pagelist .no { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: var(--cyan); border: 1px solid rgba(52, 214, 210, .4); }
+  .pagelist .t { flex: 1; min-width: 0; }
+  .pagelist a small { display: block; margin-top: 2px; font-size: 12px; font-weight: 500; color: var(--dim); }
+  .pagelist a[aria-current="page"] { border-color: var(--line-2); background: rgba(52, 214, 210, .08); }
+</style>
+<script>
+(function () {
+  'use strict';
+  var PAGES = [
+    { id: 'hero', title: 'Home', note: 'AI-enhanced global asset tracing', nodes: ['#hero', '.statbar'] },
+    { id: 'truth', title: 'Distilling truth', note: 'Too much information, not enough truth', nodes: ['#truth'] },
+    { id: 'focus', title: 'One flavour', note: 'One thing, done properly', nodes: ['#focus'] },
+    { id: 'services', title: 'What we trace', note: 'Seven asset classes', nodes: ['#services'] },
+    { id: 'clients', title: 'When to call us', note: 'Every stage of a recovery', nodes: ['#clients'] },
+    { id: 'method', title: 'How we work', note: 'AI reads, our experts verify', nodes: ['#method'] },
+    { id: 'engage', title: 'Reports', note: 'Scope, speed and formats', nodes: ['#engage'] },
+    { id: 'record', title: 'Track record', note: 'Matters and press', nodes: ['#record'] },
+    { id: 'team', title: 'Managing Directors', note: 'Cesar and Jay', nodes: ['#team'] },
+    { id: 'grow', title: 'Grow with us', note: 'Investors, partners and talent', nodes: ['#grow'] },
+    { id: 'contact', title: 'Contact', note: 'Scope a matter', nodes: ['#contact', 'footer'] }
+  ];
+  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 5.3 20 12l-6.8 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3z"/></svg>';
+  var html = document.documentElement, mq = window.matchMedia('(max-width: 760px)');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var active = false, current = -1, built = false, pager, sheet, nEl, tEl, prevB, nextB, prog, listLinks = [];
+
+  PAGES.forEach(function (p) { p.nodes = p.nodes.map(function (s) { return document.querySelector(s); }).filter(Boolean); });
+
+  function pageOf(el) {
+    for (var i = 0; i < PAGES.length; i++) for (var k = 0; k < PAGES[i].nodes.length; k++) if (PAGES[i].nodes[k].contains(el)) return i;
+    return -1;
+  }
+  function fromHash() {
+    var id = decodeURIComponent(location.hash.slice(1)), el = id ? document.getElementById(id) : null, i = el ? pageOf(el) : -1;
+    return { i: i < 0 ? 0 : i, el: i < 0 ? null : el };
+  }
+  function jumpTo(y) {
+    html.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    html.style.scrollBehavior = '';
+  }
+
+  function build() {
+    built = true;
+    PAGES.forEach(function (p, i) {
+      if (i === PAGES.length - 1) return;
+      var n = PAGES[i + 1], card = document.createElement('div');
+      card.className = 'wrap page-next';
+      card.innerHTML = '<a href="#' + n.id + '"><span><small>Next</small><b>' + n.title + '</b></span>' + ARROW + '</a>';
+      p.nodes[p.nodes.length - 1].after(card);
+      p.nodes.push(card);
+    });
+
+    pager = document.createElement('nav');
+    pager.className = 'pager';
+    pager.setAttribute('aria-label', 'Pages');
+    pager.innerHTML = '<div class="pg-progress"><i></i></div>' +
+      '<button type="button" class="pg-prev" aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 6.4 14 5l-7 7 7 7 1.4-1.4L9.8 12z"/></svg></button>' +
+      '<button type="button" class="pg-menu" aria-haspopup="dialog" aria-label="All pages"><span class="pg-n"></span><span class="pg-t"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg></button>' +
+      '<button type="button" class="pg-next" aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 17.6 10 19l7-7-7-7-1.4 1.4 5.6 5.6z"/></svg></button>';
+    document.body.appendChild(pager);
+    nEl = pager.querySelector('.pg-n'); tEl = pager.querySelector('.pg-t'); prog = pager.querySelector('.pg-progress i');
+    prevB = pager.querySelector('.pg-prev'); nextB = pager.querySelector('.pg-next');
+    prevB.addEventListener('click', function () { show(current - 1, { push: true }); });
+    nextB.addEventListener('click', function () { show(current + 1, { push: true }); });
+    pager.querySelector('.pg-menu').addEventListener('click', openList);
+
+    sheet = document.createElement('div');
+    sheet.className = 'pagelist';
+    sheet.hidden = true;
+    sheet.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="All pages"><div class="sheet-head"><b>Pages</b>' +
+      '<button type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.7 16.9 4.3 12 9.2 7.1 4.3 5.7 5.7 10.6 12l-4.9 4.9 1.4 1.4 4.9-4.9 4.9 4.9 1.4-1.4-4.9-4.9z"/></svg></button></div><ol>' +
+      PAGES.map(function (p, i) { return '<li><a href="#' + p.id + '"><span class="no">' + (i + 1) + '</span><span class="t">' + p.title + '<small>' + p.note + '</small></span></a></li>'; }).join('') +
+      '</ol></div>';
+    document.body.appendChild(sheet);
+    listLinks = Array.prototype.slice.call(sheet.querySelectorAll('a'));
+    sheet.querySelector('.sheet-head button').addEventListener('click', closeList);
+    sheet.addEventListener('click', function (e) { if (e.target === sheet) closeList(); });
+  }
+
+  function openList() { sheet.hidden = false; sheet.querySelector('.sheet-head button').focus(); }
+  function closeList() { if (sheet && !sheet.hidden) { sheet.hidden = true; pager.querySelector('.pg-menu').focus({ preventScroll: true }); } }
+
+  function show(i, opts) {
+    opts = opts || {};
+    i = Math.max(0, Math.min(PAGES.length - 1, i));
+    if (i === current && !opts.target && !opts.force) return;
+    var dir = i >= current ? 1 : -1, changed = i !== current;
+    current = i;
+    PAGES.forEach(function (p, j) { p.nodes.forEach(function (n) { if (j === i) n.removeAttribute('data-off'); else n.setAttribute('data-off', ''); }); });
+    nEl.textContent = (i + 1) + '/' + PAGES.length;
+    tEl.textContent = PAGES[i].title;
+    prevB.disabled = i === 0;
+    nextB.disabled = i === PAGES.length - 1;
+    prog.style.width = ((i + 1) / PAGES.length * 100) + '%';
+    listLinks.forEach(function (a, j) { if (j === i) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    document.querySelectorAll('.nav a').forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + PAGES[i].id); });
+    if (opts.push && location.hash !== '#' + PAGES[i].id) history.pushState(null, '', '#' + PAGES[i].id);
+    jumpTo(0);
+    window.dispatchEvent(new Event('resize'));
+    var t = opts.target && opts.target !== PAGES[i].nodes[0] ? opts.target : null;
+    if (t) requestAnimationFrame(function () { jumpTo(t.getBoundingClientRect().top + window.scrollY - 84); });
+    if (changed && !opts.still && !reduce && Element.prototype.animate) {
+      PAGES[i].nodes.forEach(function (n) {
+        n.animate([{ opacity: 0, transform: 'translateX(' + (18 * dir) + 'px)' }, { opacity: 1, transform: 'none' }], { duration: 280, easing: 'cubic-bezier(.2, .7, .2, 1)' });
+      });
+    }
+    if (!opts.still) PAGES[i].nodes[0].focus({ preventScroll: true });
+  }
+
+  function pageAtScroll() {
+    var at = 0;
+    PAGES.forEach(function (p, j) { if (p.nodes[0].getBoundingClientRect().top <= window.innerHeight * 0.3) at = j; });
+    return at;
+  }
+  var reading = 0, rt;
+  window.addEventListener('scroll', function () {
+    if (active) return;
+    clearTimeout(rt);
+    rt = setTimeout(function () { reading = pageAtScroll(); }, 120);
+  }, { passive: true });
+  function activate(fromWide) {
+    if (!built) build();
+    var h = fromWide ? { i: reading, el: null } : fromHash();
+    active = true;
+    html.classList.add('paged');
+    PAGES.forEach(function (p) { p.nodes[0].tabIndex = -1; });
+    current = -1;
+    show(h.i, { target: h.el, still: true });
+    if (!h.el) requestAnimationFrame(function () { jumpTo(0); });
+  }
+  function deactivate() {
+    active = false;
+    html.classList.remove('paged');
+    if (sheet) sheet.hidden = true;
+    PAGES.forEach(function (p) { p.nodes.forEach(function (n) { n.removeAttribute('data-off'); }); p.nodes[0].removeAttribute('tabindex'); });
+    var at = current >= 0 ? PAGES[current].nodes[0] : null;
+    reading = Math.max(current, 0);
+    window.dispatchEvent(new Event('resize'));
+    if (at) requestAnimationFrame(function () { jumpTo(at.getBoundingClientRect().top + window.scrollY - 84); });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!active || !e.target.closest) return;
+    if (e.target.closest('.menu-btn')) { e.preventDefault(); e.stopPropagation(); openList(); return; }
+    var a = e.target.closest('a[href^="#"], [data-go]');
+    if (!a) return;
+    var sel = a.hasAttribute('data-go') ? a.getAttribute('data-go') : a.getAttribute('href');
+    var el = sel && sel.length > 1 ? document.querySelector(sel) : null;
+    var i = el ? pageOf(el) : -1;
+    if (i < 0) return;
+    if (a.tagName === 'A') e.preventDefault();
+    if (sheet) sheet.hidden = true;
+    show(i, { push: true, target: el, force: true });
+  }, true);
+  document.addEventListener('keydown', function (e) { if (active && e.key === 'Escape') closeList(); });
+  window.addEventListener('popstate', function () { if (active) { var h = fromHash(); show(h.i, { target: h.el }); } });
+
+  var sx = null, sy = 0, st = 0;
+  document.addEventListener('touchstart', function (e) {
+    sx = null;
+    if (!active || e.touches.length !== 1 || !sheet.hidden) return;
+    var t = e.touches[0];
+    if (t.clientX < 24 || t.clientX > window.innerWidth - 24) return;
+    if (e.target.closest && e.target.closest('input, textarea, select, .pager, .qr-pop')) return;
+    sx = t.clientX; sy = t.clientY; st = Date.now();
+  }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (sx === null) return;
+    var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    sx = null;
+    if (Date.now() - st < 700 && Math.abs(dx) > 70 && Math.abs(dx) > 2 * Math.abs(dy)) show(current + (dx < 0 ? 1 : -1), { push: true });
+  }, { passive: true });
+
+  if (mq.matches) activate();
+  var onChange = function (e) { if (e.matches) activate(true); else if (active) deactivate(); };
+  if (mq.addEventListener) mq.addEventListener('change', onChange); else mq.addListener(onChange);
+})();
+</script>
