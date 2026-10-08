@@ -2,9 +2,9 @@
 
     python3 build.py
 
-Reads index.template.html plus ../assets/* and writes ../index.html, plus
-../index-paged.html: the same page with paged.html added, which shows one
-section per screen on phones.
+Reads index.template.html plus ../assets/* and writes two files:
+../index.html, the live site, with paged.html added so phones see one section
+per screen; and ../index(oringal).html, the original single long page.
 Needs Pillow only (for the small hero avatars).
 """
 import base64
@@ -17,8 +17,8 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, "..", "assets")
 MARKETING = os.path.join(HERE, "..", "..", "active-marketing-assets")
-OUT = os.path.join(HERE, "..", "index.html")
-OUT_PAGED = os.path.join(HERE, "..", "index-paged.html")
+OUT_SINGLE = os.path.join(HERE, "..", "index(oringal).html")
+OUT_PAGED = os.path.join(HERE, "..", "index.html")
 
 
 def data_uri(path, mime):
@@ -76,9 +76,9 @@ for k, v in subs.items():
 left = re.findall(r"\{\{[A-Z_]+\}\}", html)
 if left:
     raise SystemExit(f"unreplaced placeholders: {left}")
-with open(OUT, "w", encoding="utf-8") as f:
+with open(OUT_SINGLE, "w", encoding="utf-8") as f:
     f.write(html)
-print(f"wrote {os.path.relpath(OUT, HERE)}  ({len(html) / 1024:.0f} KB)")
+print(f"wrote {os.path.relpath(OUT_SINGLE, HERE)}  ({len(html) / 1024:.0f} KB, single long page)")
 
 with open(os.path.join(HERE, "paged.html"), encoding="utf-8") as f:
     paged = f.read()
