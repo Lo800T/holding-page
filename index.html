@@ -369,12 +369,12 @@
   .mock:hover .paper { transform: rotate(0) translateY(-4px); }
   .paper-head { background: var(--night); color: var(--text); padding: 16px 20px 18px; position: relative; }
   .paper-head::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--grad); }
-  .paper-head .ph-top { display: flex; align-items: center; justify-content: space-between; }
-  .paper-head .mini { display: flex; align-items: center; gap: 8px; }
+  .paper-head .ph-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .paper-head .mini { flex: none; display: flex; align-items: center; gap: 8px; }
   .paper-head .mini svg { width: 26px; }
   .paper-head .mini b { font-size: 8.5px; letter-spacing: .14em; font-weight: 700; line-height: 1; }
   .paper-head .mini b i { display: block; margin-top: 3px; font-style: normal; font-size: 6px; letter-spacing: .6em; color: var(--cyan); }
-  .paper-head .conf { font-size: 7.5px; font-weight: 700; letter-spacing: .22em; color: var(--soft); }
+  .paper-head .conf { font-size: 7.5px; font-weight: 700; letter-spacing: .22em; line-height: 1.5; text-align: right; color: var(--soft); }
   .paper-head h5 { margin-top: 14px; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
   .paper-head h5 span { color: var(--cyan); }
   .paper-head .meta { margin-top: 6px; font-size: 9px; color: var(--soft); display: flex; gap: 12px; flex-wrap: wrap; }
@@ -388,9 +388,10 @@
   .sec b { font-weight: 600; color: var(--night); }
   .sec em { font-style: normal; font-size: 9px; font-weight: 700; letter-spacing: .08em; color: #56707a; }
   .redact { display: inline-block; height: 8px; border-radius: 2px; background: #021821; vertical-align: middle; }
-  .paper-lines { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; width: 66%; }
+  .paper-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+  .paper-lines { flex: 1; max-width: 66%; display: flex; flex-direction: column; gap: 6px; }
   .mock figcaption { margin-top: 26px; font-size: 11.5px; color: var(--dim); text-align: center; }
-  .stamp { position: absolute; right: 16px; bottom: 12px; width: 92px; height: 92px; border-radius: 50%; border: 2px solid #0aa384; color: #07806a;
+  .stamp { flex: none; width: 92px; height: 92px; border-radius: 50%; border: 2px solid #0aa384; color: #07806a;
     display: grid; place-items: center; text-align: center; font-size: 7.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; line-height: 1.5;
     transform: rotate(-14deg); background: rgba(255,255,255,.9); box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 5px rgba(10,163,132,.5); }
 
@@ -1160,13 +1161,15 @@
               <div class="sec"><i>05</i><b>Connected parties</b><em>1 co-owner</em></div>
               <div class="sec"><i>06</i><b>Sources &amp; limitations</b><em></em></div>
             </div>
-            <div class="paper-lines">
-              <span class="redact" style="width:92%"></span>
-              <span class="redact" style="width:78%"></span>
-              <span class="redact" style="width:64%;background:#b9c9ce"></span>
+            <div class="paper-foot">
+              <div class="paper-lines">
+                <span class="redact" style="width:92%"></span>
+                <span class="redact" style="width:78%"></span>
+                <span class="redact" style="width:64%;background:#b9c9ce"></span>
+              </div>
+              <div class="stamp">Verified<br>Managing<br>Director<br>sign-off</div>
             </div>
           </div>
-          <div class="stamp">Verified<br>Managing<br>Director<br>sign-off</div>
         </div>
         <figcaption>Illustrative layout of a factual report. Client reports are confidential.</figcaption>
       </figure>
@@ -1667,11 +1670,11 @@
       { id: 'q', u: 0.950, v: 0.76, label: 'Partner \u00b7 co-owner', al: 'r', dx: 10, dy: 20 }
     ];
     var NODES_V = [
-      { id: 's', u: 0.765, v: 0.50, label: 'Subject', al: 'l', dx: 14, dy: 4, main: 1 },
-      { id: 'c', u: 0.835, v: 0.14, label: 'Holdco \u00b7 BVI', al: 'l', dx: -6, dy: -13 },
-      { id: 'p', u: 0.905, v: 0.86, label: 'Property', al: 'r', dx: 6, dy: -13 },
-      { id: 'w', u: 0.955, v: 0.16, label: 'Wallet \u2192 exchange', al: 'l', dx: 12, dy: 4 },
-      { id: 'q', u: 0.975, v: 0.68, label: 'Partner', al: 'l', dx: 12, dy: 4 }
+      { id: 's', u: 0.765, v: 0.50, label: 'Subject', al: 'l', dx: 17, dy: 4, main: 1 },
+      { id: 'c', u: 0.835, v: 0.14, label: 'Holdco \u00b7 BVI', al: 'l', dx: -6, dy: -17 },
+      { id: 'p', u: 0.905, v: 0.86, label: 'Property', al: 'r', dx: 6, dy: -17 },
+      { id: 'w', u: 0.955, v: 0.16, label: 'Wallet \u2192 exchange', al: 'l', dx: 14, dy: 4 },
+      { id: 'q', u: 0.975, v: 0.68, label: 'Partner', al: 'l', dx: 14, dy: 4 }
     ];
     var EDGES = [['s', 'c'], ['c', 'p'], ['s', 'w'], ['s', 'q'], ['q', 'p']];
     var nodes = NODES_H;
@@ -1687,7 +1690,22 @@
       p.a = 1; p.die = 0; p.t = null; p.r = rand(0.8, 1.8);
       p.lane = [0.18, 0.34, 0.5, 0.66, 0.82][(Math.random() * 5) | 0];
     }
-    function spawnTok(t, fresh) { t.u = fresh ? rand(0.01, G1 - 0.1) : rand(0.005, 0.05); t.v = rand(0.14, 0.86); t.sp = rand(0.0005, 0.0009); t.a = 0; t.s = TOK[(Math.random() * TOK.length) | 0]; }
+    // Noise words all drift at one speed, so a word placed clear of the others stays clear.
+    var TOK_SP = 0.0007, TOK_FONT = '600 11px Montserrat, Arial, sans-serif', tokStart, tokEnd;
+    function tokBox(u, v, w) { var q = P(u, v); return [q[0] - 12, q[1] - 13, q[0] + w + 12, q[1] + 13]; }
+    function hits(a, b) { return a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3]; }
+    function placeTok(t, u) {
+      var shown = tokens.filter(function (o) { return o !== t && o.on; });
+      var words = TOK.filter(function (s) { return !shown.some(function (o) { return o.s === s; }); });
+      var s = words[(Math.random() * words.length) | 0];
+      x.font = TOK_FONT;
+      var w = x.measureText(s).width, vMax = horiz ? 0.86 : (W - 30 - w) / (W - 36);
+      for (var k = 0; k < 12; k++) {
+        var v = rand(horiz ? 0.14 : 0.04, vMax), b = tokBox(u, v, w);
+        if (!shown.some(function (o) { return hits(b, tokBox(o.u, o.v, o.w)); })) { t.u = u; t.v = v; t.s = s; t.w = w; t.a = 0; t.on = true; return; }
+      }
+      t.on = false;
+    }
     function setup() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = c.clientWidth; H = c.clientHeight;
@@ -1697,7 +1715,10 @@
       nodes.forEach(function (n) { n.pulse = 0; });
       var n = horiz ? 340 : 190;
       parts = []; for (var i = 0; i < n; i++) { var p = {}; spawn(p, true); parts.push(p); }
-      tokens = []; for (var j = 0; j < (horiz ? 9 : 6); j++) { var t = {}; spawnTok(t, true); tokens.push(t); }
+      tokStart = horiz ? 0.005 : 0.06; tokEnd = horiz ? G1 + 0.01 : G1 - 0.06;
+      var nt = horiz ? 9 : 6;
+      tokens = [];
+      for (var j = 0; j < nt; j++) { var t = { on: false }; tokens.push(t); placeTok(t, tokStart + (j + 0.5) / nt * (tokEnd - tokStart)); }
       sparks = [];
     }
     function step(dt) {
@@ -1723,9 +1744,10 @@
         }
       });
       tokens.forEach(function (t) {
-        t.u += t.sp * dt;
+        if (!t.on) { placeTok(t, tokStart); return; }
+        t.u += TOK_SP * dt;
         t.a = Math.min(1, t.a + 0.02 * dt);
-        if (t.u > G1 + 0.01) spawnTok(t, false);
+        if (t.u > tokEnd) t.on = false;
       });
       sparks = sparks.filter(function (s) { s.a -= 0.05 * dt; return s.a > 0; });
       nodes.forEach(function (n) { n.pulse = Math.max(0, n.pulse - 0.02 * dt); });
@@ -1777,16 +1799,16 @@
       zone(G1 + 0.03, 'SIGNAL');
       if (!horiz) zone(TRUTH0 + 0.01, 'VERIFIED');
       // noise tokens
-      x.font = '600 11px Montserrat, Arial, sans-serif'; x.textAlign = 'left'; x.textBaseline = 'middle';
+      x.font = TOK_FONT; x.textAlign = 'left'; x.textBaseline = 'middle';
       tokens.forEach(function (t) {
-        var q = P(t.u, t.v), near = Math.max(0, Math.min(1, (t.u - (G1 - 0.1)) / 0.1));
-        var al = 0.42 * t.a * (1 - near * 0.8);
-        x.fillStyle = 'rgba(169,191,198,' + al + ')';
+        if (!t.on) return;
+        var q = P(t.u, t.v), near = Math.max(0, Math.min(1, (t.u - (tokEnd - 0.11)) / 0.11));
+        var out = 1 - Math.max(0, (near - 0.7) / 0.3);
+        x.fillStyle = 'rgba(169,191,198,' + (0.42 * t.a * (1 - near * 0.8) * out) + ')';
         x.fillText(t.s, q[0], q[1]);
         if (near > 0) {
-          var w = x.measureText(t.s).width * near;
-          x.strokeStyle = 'rgba(169,191,198,' + (0.6 * t.a) + ')'; x.lineWidth = 1;
-          x.beginPath(); x.moveTo(q[0], q[1]); x.lineTo(q[0] + w, q[1]); x.stroke();
+          x.strokeStyle = 'rgba(169,191,198,' + (0.6 * t.a * out) + ')'; x.lineWidth = 1;
+          x.beginPath(); x.moveTo(q[0], q[1]); x.lineTo(q[0] + t.w * near, q[1]); x.stroke();
         }
       });
       var L = gateLabels();
@@ -1818,12 +1840,17 @@
         g.addColorStop(0, 'rgba(52,214,210,' + (0.35 + n.pulse * 0.4) + ')'); g.addColorStop(1, 'rgba(52,214,210,0)');
         x.fillStyle = g; x.beginPath(); x.arc(q[0], q[1], 36, 0, 6.283); x.fill();
         x.fillStyle = n.main ? '#e9f1f3' : '#34d6d2'; x.beginPath(); x.arc(q[0], q[1], r, 0, 6.283); x.fill();
+      });
+      // labels last, on a dark chip, so edges and particles pass behind them
+      nodes.forEach(function (n) {
+        var q = P(n.u, n.v), lx = q[0] + (n.dx || 0), ly = q[1] + (n.dy || 0), label = n.label + '  \u2713';
         x.font = (n.main ? '700 12px' : '600 11px') + ' Montserrat, Arial, sans-serif';
         x.textBaseline = 'middle';
-        var lx = q[0] + (n.dx || 0), ly = q[1] + (n.dy || 0);
         x.textAlign = n.al === 'r' ? 'right' : n.al === 'l' ? 'left' : 'center';
+        var tw = x.measureText(label).width, bx = n.al === 'r' ? lx - tw : n.al === 'l' ? lx : lx - tw / 2;
+        x.fillStyle = 'rgba(2,24,33,0.84)';
+        roundRect(bx - 7, ly - 10, tw + 14, 20, 10); x.fill();
         x.fillStyle = '#e9f1f3';
-        var label = n.label + '  \u2713';
         x.fillText(label, lx, ly);
       });
     }
@@ -2082,8 +2109,8 @@
   html.paged body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
   html.paged [data-off] { display: none !important; }
   html.paged section.band { padding: 88px 0 28px; }
-  html.paged .page-next { display: block; padding-bottom: 32px; }
-  html.paged .statbar + .page-next { padding-top: 28px; }
+  html.paged .page-next { display: block; padding-top: 28px; }
+  html.paged .statbar + .page-next { padding-bottom: 32px; }
   .page-next a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-radius: 16px;
     border: 1px solid var(--line-2); background: linear-gradient(90deg, rgba(52, 214, 210, .12), rgba(10, 163, 132, .04)); }
   .page-next small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--cyan); }
@@ -2164,8 +2191,9 @@
       var n = PAGES[i + 1], card = document.createElement('div');
       card.className = 'wrap page-next';
       card.innerHTML = '<a href="#' + n.id + '"><span><small>Next</small><b>' + n.title + '</b></span>' + ARROW + '</a>';
-      p.nodes[p.nodes.length - 1].after(card);
-      p.nodes.push(card);
+      var last = p.nodes[p.nodes.length - 1];
+      if (last.tagName === 'SECTION') last.appendChild(card);
+      else { last.after(card); p.nodes.push(card); }
     });
 
     pager = document.createElement('nav');

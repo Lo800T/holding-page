@@ -4,8 +4,8 @@
   html.paged body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
   html.paged [data-off] { display: none !important; }
   html.paged section.band { padding: 88px 0 28px; }
-  html.paged .page-next { display: block; padding-bottom: 32px; }
-  html.paged .statbar + .page-next { padding-top: 28px; }
+  html.paged .page-next { display: block; padding-top: 28px; }
+  html.paged .statbar + .page-next { padding-bottom: 32px; }
   .page-next a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-radius: 16px;
     border: 1px solid var(--line-2); background: linear-gradient(90deg, rgba(52, 214, 210, .12), rgba(10, 163, 132, .04)); }
   .page-next small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--cyan); }
@@ -86,8 +86,9 @@
       var n = PAGES[i + 1], card = document.createElement('div');
       card.className = 'wrap page-next';
       card.innerHTML = '<a href="#' + n.id + '"><span><small>Next</small><b>' + n.title + '</b></span>' + ARROW + '</a>';
-      p.nodes[p.nodes.length - 1].after(card);
-      p.nodes.push(card);
+      var last = p.nodes[p.nodes.length - 1];
+      if (last.tagName === 'SECTION') last.appendChild(card);
+      else { last.after(card); p.nodes.push(card); }
     });
 
     pager = document.createElement('nav');
